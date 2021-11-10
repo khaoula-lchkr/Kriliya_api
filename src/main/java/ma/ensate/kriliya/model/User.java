@@ -1,6 +1,7 @@
 package ma.ensate.kriliya.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="users")
@@ -11,7 +12,10 @@ public class User {
     private int id;
     private String nom;
     private String prenom;
-
+    private String email;
+    private String 	mdp;
+    private int telephone;
+    private String role;
     public User(){
 
     }
@@ -25,9 +29,6 @@ public class User {
         this.telephone = telephone;
         this.role = role;
     }
-
-    private String email;
-    private String 	mdp;
 
     public int getId() {
         return id;
@@ -85,7 +86,6 @@ public class User {
         this.role = role;
     }
 
-    private int telephone;
-    private String role;
+
 
 }

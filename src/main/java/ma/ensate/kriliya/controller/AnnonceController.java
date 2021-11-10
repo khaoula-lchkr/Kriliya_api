@@ -8,21 +8,27 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/annonce")
+@RequestMapping("/kriliya")
 public class AnnonceController {
+
 
     @Autowired
     private AnnonceService annonceService;
 
-    @PostMapping("/save")
-    public String add(@RequestBody Annonce annonce){
-        annonceService.saveAnnonce(annonce);
-        return "Saved";
+    @GetMapping("/mesAnnonces/{id}")
+    public List<Annonce> getAnnonceByUser(@PathVariable Integer id){
+        return annonceService.getAnnonceByUser(id);
+    }
+
+    @PutMapping("/annonce/{id}")
+    public Annonce update(@PathVariable Integer id, @RequestBody Annonce annonce){
+       return  annonceService.updateAnnonce(id, annonce);
     }
 
 
-    @GetMapping("get")
-    public List<Annonce> get(){
-        return annonceService.getAllAnnonce();
+
+    @DeleteMapping("/annonce/{id}")
+    public void removeAnnonce(@PathVariable Integer id) {
+        annonceService.removeAnnonce(id);
     }
 }

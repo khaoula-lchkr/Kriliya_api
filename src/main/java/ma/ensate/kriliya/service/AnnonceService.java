@@ -8,6 +8,7 @@ import java.util.List;
 @Service
 public interface AnnonceService {
 
-    public Annonce saveAnnonce(Annonce annonce);
-    public List<Annonce> getAllAnnonce();
+    public List<Annonce> getAnnonceByUser(Integer id);
+    public Annonce updateAnnonce(Integer id, Annonce annonce);
+    public void removeAnnonce(Integer id);
 }

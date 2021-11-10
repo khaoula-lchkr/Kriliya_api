@@ -11,11 +11,7 @@ public class Image {
     private int id;
     private String url;
     private String cle;
-
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="annonce_id", referencedColumnName = "id")
-    private Annonce annonce;
+    private int annonce_id;
 
     public Image(){
 

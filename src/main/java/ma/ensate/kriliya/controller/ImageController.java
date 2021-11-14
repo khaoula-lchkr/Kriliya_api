@@ -4,6 +4,7 @@ import ma.ensate.kriliya.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("kriliya/")
 public class ImageController {

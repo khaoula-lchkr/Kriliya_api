@@ -16,6 +16,10 @@ public class User {
     private String 	mdp;
     private int telephone;
     private String role;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private List<Annonce> annonces;
     public User(){
 
     }

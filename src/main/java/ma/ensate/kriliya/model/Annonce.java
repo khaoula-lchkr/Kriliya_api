@@ -1,6 +1,7 @@
 package ma.ensate.kriliya.model;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -10,6 +11,7 @@ public class Annonce {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private Date date;
     private String type;
     private String titre;
     private String description;
@@ -33,12 +35,22 @@ public class Annonce {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="annonce_id", referencedColumnName = "id")
     private List<Image> Images;
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     public Annonce(){
 
     }
 
-    public Annonce(int id, String type, String titre, String description, String ville, String quartier, float prix, int surface, int chambres, Boolean wifi, Boolean refrigerateur, Boolean chauffage, Boolean machineALaver, String preference) {
+    public Annonce(int id, Date date, String type, String titre, String description, String ville, String quartier, float prix, int surface, int chambres, Boolean wifi, Boolean refrigerateur, Boolean chauffage, Boolean machineALaver, String preference) {
         this.id = id;
+        this.date = date;
         this.type = type;
         this.titre = titre;
         this.description = description;

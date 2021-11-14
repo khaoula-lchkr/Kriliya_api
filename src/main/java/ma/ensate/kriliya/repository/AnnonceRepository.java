@@ -11,4 +11,5 @@ public interface AnnonceRepository extends JpaRepository<Annonce, Integer> {
 
 public List<Annonce> findAllByUser_id(Integer id);
 
+
 }

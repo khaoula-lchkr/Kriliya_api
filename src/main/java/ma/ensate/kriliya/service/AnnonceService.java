@@ -11,4 +11,5 @@ public interface AnnonceService {
     public List<Annonce> getAnnonceByUser(Integer id);
     public Annonce updateAnnonce(Integer id, Annonce annonce);
     public void removeAnnonce(Integer id);
+    public Annonce addAnnonce(Annonce annonce);
 }

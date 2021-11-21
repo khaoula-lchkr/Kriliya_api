@@ -92,10 +92,9 @@ public class AnnonceServiceImpl implements AnnonceService{
 
     @Override
     public Annonce addAnnonce(Annonce annonce, MultipartFile[] files){
-        System.out.println("l'erreur baaqi");
-        Image image = new Image();
         List<Image> images = new ArrayList<>();
         for (MultipartFile file: files) {
+            Image image = new Image();
             try {
                 image.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
             } catch (IOException e) {
@@ -103,11 +102,8 @@ public class AnnonceServiceImpl implements AnnonceService{
             }
             images.add(image);
         }
-        System.out.println(annonce);
         Annonce insertedAnnonce = annoncerepository.save(annonce);
-        System.out.println("l'erreur ymkn");
         int id_annonce = insertedAnnonce.getId();
-        System.out.println("l'erreur hnaa");
         for (Image img: images) {
             imageRepository.save(new Image(img.getImage(), id_annonce));
         }

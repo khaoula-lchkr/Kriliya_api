@@ -14,7 +14,7 @@ public class User {
     private String prenom;
     private String email;
     private String 	mdp;
-    private int telephone;
+    private String telephone;
     private String role;
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -24,7 +24,7 @@ public class User {
 
     }
 
-    public User(int id, String nom, String prenom, String email, String mdp, int telephone, String role) {
+    public User(int id, String nom, String prenom, String email, String mdp, String telephone, String role) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -74,11 +74,11 @@ public class User {
         this.mdp = mdp;
     }
 
-    public int getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
 
-    public void setTelephone(int telephone) {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 

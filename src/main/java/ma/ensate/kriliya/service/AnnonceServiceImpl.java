@@ -1,10 +1,16 @@
 package ma.ensate.kriliya.service;
 
 import ma.ensate.kriliya.model.Annonce;
+import ma.ensate.kriliya.model.Image;
 import ma.ensate.kriliya.repository.AnnonceRepository;
+import ma.ensate.kriliya.repository.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import javax.transaction.Transactional;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +19,9 @@ public class AnnonceServiceImpl implements AnnonceService{
 
     @Autowired
     private AnnonceRepository annoncerepository;
+
+    @Autowired
+    private ImageRepository imageRepository;
 
 
     @Override
@@ -66,6 +75,12 @@ public class AnnonceServiceImpl implements AnnonceService{
             if(!annonceToUpdate.getPreference().equals(updatedAnnonce.getPreference())){
                 annonceToUpdate.setPreference(updatedAnnonce.getPreference());
             }
+            if(!annonceToUpdate.getDate().equals(updatedAnnonce.getDate())){
+                annonceToUpdate.setDate(updatedAnnonce.getDate());
+            }
+            if(!annonceToUpdate.getMeuble().equals(updatedAnnonce.getMeuble())){
+                annonceToUpdate.setMeuble(updatedAnnonce.getMeuble());
+            }
         }
         return annonceToUpdate;
     }
@@ -76,5 +91,36 @@ public class AnnonceServiceImpl implements AnnonceService{
     }
 
     @Override
-    public Annonce addAnnonce(Annonce annonce) { return annoncerepository.save(annonce); }
+    public Annonce addAnnonce(Annonce annonce, MultipartFile[] files){
+        System.out.println("l'erreur baaqi");
+        Image image = new Image();
+        List<Image> images = new ArrayList<>();
+        for (MultipartFile file: files) {
+            try {
+                image.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            images.add(image);
+        }
+        System.out.println(annonce);
+        Annonce insertedAnnonce = annoncerepository.save(annonce);
+        System.out.println("l'erreur ymkn");
+        int id_annonce = insertedAnnonce.getId();
+        System.out.println("l'erreur hnaa");
+        for (Image img: images) {
+            imageRepository.save(new Image(img.getImage(), id_annonce));
+        }
+        return insertedAnnonce;
+    }
+
+    @Override
+    public Annonce getAnnonce(Integer id) {
+        Optional<Annonce> annonce = annoncerepository.findById(id);
+        Annonce ann = null;
+        if(annonce.isPresent()){
+            ann = annonce.get();
+        }
+        return ann;
+    }
 }

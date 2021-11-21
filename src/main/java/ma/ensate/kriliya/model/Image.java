@@ -9,19 +9,19 @@ public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String url;
-    private String cle;
+    @Lob
+    @Column(columnDefinition = "MEDIUMBLOB")
+    private String image;
     private int annonce_id;
 
-    public Image(){
+    public Image() {
 
     }
 
-    public Image(int id, String url, String cle) {
-        this.id = id;
-        this.url = url;
-        this.cle = cle;
 
+    public Image(String image, int annonce_id) {
+        this.image = image;
+        this.annonce_id = annonce_id;
     }
 
     public int getId() {
@@ -32,22 +32,20 @@ public class Image {
         this.id = id;
     }
 
-    public String getUrl() {
-        return url;
+    public String getImage() {
+        return image;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getCle() {
-        return cle;
-    }
-
-    public void setCle(String cle) {
-        this.cle = cle;
+    public void setImage(String image) {
+        this.image = image;
     }
 
 
+    public int getAnnonce_id() {
+        return annonce_id;
+    }
 
+    public void setAnnonce_id(int annonce_id) {
+        this.annonce_id = annonce_id;
+    }
 }

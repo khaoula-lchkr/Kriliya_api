@@ -1,15 +1,19 @@
 package ma.ensate.kriliya.controller;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import ma.ensate.kriliya.model.Annonce;
 import ma.ensate.kriliya.service.AnnonceService;
+import org.hibernate.service.spi.InjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 @CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("kriliya/")
 public class AnnonceController {
-
 
     @Autowired
     private AnnonceService annonceService;
@@ -19,9 +23,19 @@ public class AnnonceController {
         return annonceService.getAnnonceByUser(id);
     }
 
-    @PostMapping("/annonce")
-    public Annonce store(@RequestBody Annonce annonce){
-        return annonceService.addAnnonce(annonce);
+    @GetMapping("annonce/{id}")
+    public Annonce getAnnonce(@PathVariable Integer id) { return annonceService.getAnnonce(id);}
+
+    @PostMapping(path = "/annonce/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Annonce save(@RequestPart String annonce, @RequestPart MultipartFile[] files) {
+
+        Annonce annonceOb = new Annonce();
+        try {
+            annonceOb  = new ObjectMapper().readValue(annonce, Annonce.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+           return annonceService.addAnnonce(annonceOb, files);
     }
 
     @PutMapping("annonce/{id}")
@@ -29,7 +43,7 @@ public class AnnonceController {
        return  annonceService.updateAnnonce(id, annonce);
     }
 
-    @DeleteMapping("/annonce/{id}")
+    @DeleteMapping("annonce/{id}")
     public void delete(@PathVariable Integer id) {
         annonceService.removeAnnonce(id);
     }

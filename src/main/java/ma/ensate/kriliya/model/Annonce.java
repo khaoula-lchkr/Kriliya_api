@@ -21,6 +21,7 @@ public class Annonce {
     private int surface;
     private int chambres;
     private  Boolean wifi;
+    private Boolean meuble;
     private Boolean refrigerateur;
     private Boolean chauffage;
     private Boolean machineALaver;
@@ -36,19 +37,11 @@ public class Annonce {
     @JoinColumn(name="annonce_id", referencedColumnName = "id")
     private List<Image> Images;
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     public Annonce(){
 
     }
 
-    public Annonce(int id, Date date, String type, String titre, String description, String ville, String quartier, float prix, int surface, int chambres, Boolean wifi, Boolean refrigerateur, Boolean chauffage, Boolean machineALaver, String preference) {
+    public Annonce(int id, Date date, String type, String titre, String description, String ville, String quartier, float prix, int surface, int chambres, Boolean wifi, Boolean refrigerateur, Boolean chauffage, Boolean machineALaver, Boolean meuble, String preference) {
         this.id = id;
         this.date = date;
         this.type = type;
@@ -62,6 +55,7 @@ public class Annonce {
         this.wifi = wifi;
         this.refrigerateur = refrigerateur;
         this.chauffage = chauffage;
+        this.meuble = meuble;
         this.machineALaver = machineALaver;
         this.preference = preference;
     }
@@ -154,9 +148,7 @@ public class Annonce {
         this.refrigerateur = refrigerateur;
     }
 
-    public Boolean getChauffage() {
-        return chauffage;
-    }
+    public Boolean getChauffage() { return chauffage; }
 
     public void setChauffage(Boolean chauffage) {
         this.chauffage = chauffage;
@@ -177,6 +169,18 @@ public class Annonce {
     public void setPreference(String preference) {
         this.preference = preference;
     }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Boolean getMeuble() { return meuble; }
+
+    public void setMeuble(Boolean meuble) { this.meuble = meuble; }
 
     public int getUser_id() {
         return User_id;
